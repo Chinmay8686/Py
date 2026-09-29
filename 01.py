@@ -1,3 +1,4 @@
+#palindrome Number
 num = int(input("Enter Number :"))
 sum=0
 n=num
