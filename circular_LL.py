@@ -1,53 +1,112 @@
 class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-class CircularLinkedList:
+    def __init__(self, value):
+        self.data=value
+        self.next=None
+class SLL:
     def __init__(self):
-        self.head = None
-
-    # Function to add a node at the end of the list
-    def append(self, data):
-        new_node = Node(data)
-        
-        # If the list is empty, make the new node point to itself
-        if not self.head:
-            self.head = new_node
-            new_node.next = self.head
-            return
-        
-        # Otherwise, traverse until we find the node whose next is the head
-        current = self.head
-        while current.next != self.head:
-            current = current.next
-            
-        current.next = new_node
-        new_node.next = self.head
-
-    # Function to display the circular linked list
-    def display(self):
-        if not self.head:
-            print("The list is empty.")
-            return
-        
-        current = self.head
-        elements = []
-        
-        while True:
-            elements.append(str(current.data))
-            current = current.next
-            if current == self.head:
-                break
-                
-        print(" -> ".join(elements) + " -> (Points back to Head)")
-
-# --- Example Usage ---
-if __name__ == "__main__":
-    cll = CircularLinkedList()
-    cll.append(10)
-    cll.append(20)
-    cll.append(30)
-    cll.append(40)
+        self.head=None
     
-    cll.display()
+    def append(self, new_node):
+        if self.head==None:
+            self.head=new_node
+        else:
+            temp=self.head
+            while(temp.next):
+                temp=temp.next
+            temp.next=new_node
+    
+    def insert(self, new_node, pos):
+        if pos == 1:
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            p = 1
+            temp = self.head
+            while p != pos - 1:
+                temp = temp.next
+                p += 1
+            new_node.next = temp.next
+            temp.next = new_node
+
+    def delete(self, value):
+        temp = self.head
+        if temp == None:
+            print("List is empty")
+            return
+        if temp.data == value:  # Delete the first node
+            self.head = self.head.next
+            return
+        prev = temp
+        temp = temp.next
+        while temp != None and temp.data != value:
+            prev = temp
+            temp = temp.next
+        if temp == None:
+            print("Value is not present in the list")
+            return
+        prev.next = temp.next
+        temp = None
+
+    def reverse(self):
+        curr=self.head
+        prev=None
+        while(curr):
+            nextnode=curr.next
+            curr.next=prev
+            prev=curr
+            curr=nextnode
+        self.head=prev
+
+    def findmid_del(self):
+        temp = temp1 = self.head
+        prev=None
+        while temp1 and temp1.next:
+            prev=temp
+            temp=temp.next
+            temp1=temp1.next.next
+        print("Middle Node: ",temp.data)
+        prev.next=temp.next
+        temp=None
+
+    def del_first_last(self):
+        temp1=self.head
+        temp1=None
+        prev=None
+        temp=self.head=self.head.next
+        while(temp.next):
+            prev=temp
+            temp=temp.next
+        prev.next=None
+
+    def print(self):
+        temp=self.head
+        while(temp):
+            print(temp.data, end=" ")
+            temp=temp.next
+        print()
+
+list1 = SLL()
+n1 = Node(10)
+n2 = Node(20)
+list1.append(n1)
+list1.append(n2)
+list1.append(Node(30))
+list1.append(Node(40))
+list1.print()
+list1.insert(Node(34),1)
+list1.print()
+list1.insert(Node(50),6)
+list1.print()
+list1.insert(Node(2),2)
+list1.print()
+list1.delete(2)
+list1.print()
+list1.delete(3)
+list1.print()
+print("Reversed LL:")
+list1.reverse()
+list1.print()
+list1.findmid_del()
+list1.print()
+list1.del_first_last()
+list1.print()
