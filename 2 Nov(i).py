@@ -38,18 +38,14 @@ class Stack:
         print("-" * 13)
 
 
-
-
 def reverse_string(input_str):
     """Reverses a string using a Stack."""
     stack = Stack(len(input_str))
     
-    # Push all characters onto the stack
-    for char in input_str:
+    for char in input_str:  # Push characters
         stack.push(char)
         
-    # Pop characters to get the reversed string
-    reversed_str = ""
+    reversed_str = ""  # Pop characters
     while not stack.is_empty():
         reversed_str += stack.pop()
         
@@ -57,25 +53,27 @@ def reverse_string(input_str):
 
 
 def reverse_stack(stack):
-    """Reverses a stack using another temporary stack."""
+    """Reverses a stack using temporary stacks."""
     temp_stack1 = Stack(stack.capacity)
     temp_stack2 = Stack(stack.capacity)
     
-    while not stack.is_empty(): # Transfer elements from original stack to temp_stack1 (reverses order once)
+    
+    while not stack.is_empty():  # Transfer elements from original stack to temp_stack1 (reverses order once)
         temp_stack1.push(stack.pop())
         
-    while not temp_stack1.is_empty(): # Transfer from temp_stack1 to temp_stack2 (reverses order twice back to original sequence relative to bottom)
+   
+    while not temp_stack1.is_empty():  # Transfer from temp_stack1 to temp_stack2 (reverses order twice back to original sequence)
         temp_stack2.push(temp_stack1.pop())
         
-    while not temp_stack2.is_empty():  # Transfer back to original stack so it is fully reversed
+    
+    while not temp_stack2.is_empty(): # Transfer back to original stack so it is fully reversed
         stack.push(temp_stack2.pop())
         
     return stack
 
 
-# --- Demonstration / Menu-Driven Program ---
 if __name__ == "__main__":
-    print("- Basic Stack Operations ")
+    print("--- Basic Stack Operations ---")
     s = Stack(5)
     s.push(10)
     s.push(20)
@@ -84,12 +82,13 @@ if __name__ == "__main__":
     
     print(f"Popped element: {s.pop()}")
     s.display()
-    print("\n-  Reverse String using Stack -")
+    
+    print("\n--- Reverse String using Stack ---")
     original_text = "DataStructures"
-    print(f"Original String:{original_text}")
-    print(f"Reversed String:{reverse_string(original_text)}")
+    print(f"Original String: {original_text}")
+    print(f"Reversed String: {reverse_string(original_text)}")
 
-    print("\n- Reverse Stack using Another Stack -")
+    print("\n--- Reverse Stack using Another Stack ---")
     print("Original Stack before reversal:")
     s.display()
     
