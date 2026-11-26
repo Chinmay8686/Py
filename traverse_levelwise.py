@@ -37,6 +37,20 @@ class BST:
         print(rt.data, end=" ")
         self.inorder(rt.right)
 
+    def preorder(self, rt):
+        if rt is None:
+            return 
+        print(rt.data, end=" ")
+        self.preorder(rt.left)
+        self.preorder(rt.right)
+
+    def postorder(self, rt):
+        if rt is None :
+            return
+        self.postorder(rt.left)
+        self.postorder(rt.right)
+        print(rt.data, end= " ")
+
     def level_order(self,rt):
         if rt is None:
             print("BST is empty")
@@ -61,6 +75,12 @@ for val in [100, 10, 450, 4, 65, 300, 500]:
 
 print("\nInorder:")
 b1.inorder(b1.root)
+
+print("\npreorder:")
+b1.preorder(b1.root)
+
+print("\npostorder:")
+b1.postorder(b1.root)
 
 print("\nLevel order:")
 b1.level_order(b1.root)
